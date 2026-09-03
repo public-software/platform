@@ -22,3 +22,13 @@ summary     = "Foundational crates every repo uses: errors, config layering, tra
 # specs     = []
 # provides  = ["public:area/iface@1"]
 # requires  = []
+
+[[component]]
+crate     = "pub-platform-paths"
+kind      = "lib"
+ledger    = "paths"
+readiness = "partial"
+effort    = 2
+specs     = ["xdg-basedir-0.8"]
+provides  = []
+requires  = []
