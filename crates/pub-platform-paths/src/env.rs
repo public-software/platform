@@ -35,7 +35,9 @@ impl Env {
     /// A snapshot of the running process's environment.
     ///
     /// This is the one place the crate touches the ambient environment; call it at the edge of
-    /// a program and pass the result down.
+    /// a program and pass the result down. Names are kept as the operating system reports them
+    /// (Windows spells the search path `Path`, say), so read the snapshot with [`Env::lookup`]
+    /// and the platform's rule rather than an exact [`Env::get`].
     #[must_use]
     pub fn from_process() -> Self {
         std::env::vars_os().collect()

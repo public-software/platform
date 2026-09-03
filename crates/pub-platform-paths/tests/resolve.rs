@@ -407,10 +407,12 @@ fn a_trailing_separator_on_a_base_is_not_doubled() {
 
 #[test]
 fn the_process_environment_is_one_env_among_others() {
+    // Names are kept as the OS reports them (Windows spells this one `Path`), so the lookup that
+    // applies the platform's rule is the one to compare with the standard library's.
     let live = Env::from_process();
     assert_eq!(
-        live.get("PATH").is_some(),
-        std::env::var_os("PATH").is_some()
+        live.lookup(Platform::current(), "PATH"),
+        std::env::var_os("PATH").as_deref()
     );
     let fixed = env(&[("HOME", "/home/u")]);
     assert_eq!(
